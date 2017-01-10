@@ -7,7 +7,6 @@
     "pretest": "npm run lint --silent"
   },
   "dependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.0.9",
     "babel-runtime": "6.18.0",
     "bcrypt": "^1.0.1",
     "better-react-flex-slick": "0.0.13",
@@ -32,8 +31,7 @@
     "react-slick": "^0.13.6",
     "react-tap-event-plugin": "^2.0.1",
     "react-title-component": "^1.0.1",
-    "react-toggle-display": "^2.1.1",
-    "thumbler": "^1.1.1-1"
+    "react-toggle-display": "^2.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",

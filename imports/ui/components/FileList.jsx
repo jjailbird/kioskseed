@@ -95,7 +95,7 @@ export default class FileList extends trackerReact(Component) {
     } else {
       files = MediaFiles.find({ contentType: fileType }, { sort: { updatedAt: -1 } }).fetch();
     }
-    files = MediaFiles.find({}, { sort: { updatedAt: -1 } }).fetch();
+    // files = MediaFiles.find({}, { sort: { updatedAt: -1 } }).fetch();
     return (
       <Paper
         style={{ display: 'inline-block', verticalAlign: 'top' }}
