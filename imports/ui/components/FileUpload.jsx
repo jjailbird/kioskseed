@@ -60,13 +60,19 @@ class FileUpload extends trackerReact(Component) {
     }
 
     if (confirm) {
-      reader.onloadend = () => {
+      if (this.props.fileType === 'video') {
         this.setState({
-          file,
-          imagePreviewUrl: reader.result,
+          imagePreviewUrl: '/img/video.blank.svg',
         });
-      };
-      reader.readAsDataURL(file);
+      } else {
+        reader.onloadend = () => {
+          this.setState({
+            // file,
+            imagePreviewUrl: reader.result,
+          });
+        };
+        reader.readAsDataURL(file);
+      }
     } else {
       this.inputFile.value = '';
       alert('알맞은 화일 타입이 아닙니다.');
@@ -113,6 +119,7 @@ class FileUpload extends trackerReact(Component) {
           },
           streams: 'dynamic',
           chunkSize: 'dynamic',
+          transport: 'http',
           allowWebWorkers: true, // If you see issues with uploads, change this to false
         }, false);
 

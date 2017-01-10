@@ -40,7 +40,9 @@ export const MediaFiles = new FilesCollection({
 
       const videoSourcePath = file.path;
       const videoThumbFile = `${file._id}.thumb.jpg`;
-      const videoThumbPath = `${file._storagePath}/${videoThumbFile}`;
+      // const videoThumbPath = `${file._storagePath}/${videoThumbFile}`;
+      const videoThumbPath = file._storagePath;
+      // const videoThumbPath = '/Users/jjailbird/Documents/dev/kiosk/kioskseed/public/uploads';
       const proc = new ffmpeg({ source: videoSourcePath })
         // .withSize('150x100')
         .takeScreenshots({
@@ -49,7 +51,7 @@ export const MediaFiles = new FilesCollection({
           filename: videoThumbFile,
           // timemarks: ['50%', '75%'],
           // filename: '%b_screenshot_%w_%i',
-        }, file._storagePath, function (err, filenames) {
+        }, videoThumbPath, function (err, filenames) {
           console.log(filenames);
           console.log('screenshots were saved');
         });
