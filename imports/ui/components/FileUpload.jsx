@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 // import { _ } from 'meteor/underscore';
 import trackerReact from 'meteor/ultimatejs:tracker-react';
 import Slider from 'material-ui/Slider';
+import LinearProgress from 'material-ui/LinearProgress';
 import ToggleDisplay from 'react-toggle-display';
 import { MediaFiles } from '../../api/upload/MediaFiles.js';
 
@@ -31,7 +32,8 @@ class FileUpload extends trackerReact(Component) {
       },
       lightboxIsOpen: false,
       currentImage: 0,
-      file: '',
+      // file: '',
+      fileName: '',
       imagePreviewUrl: '/img/image.blank.svg',
     };
     this.openFileDialog = this.openFileDialog.bind(this);
@@ -50,8 +52,9 @@ class FileUpload extends trackerReact(Component) {
 
     const reader = new FileReader();
     const file = e.target.files[0];
-    const fileExtension = file.name.split('.').pop();
+    const fileExtension = file && file.name.split('.').pop();
 
+    // console.log(file);
     let confirm = false;
     if (this.props.fileType === 'video') {
       confirm = /mp4/i.test(fileExtension);
@@ -62,20 +65,23 @@ class FileUpload extends trackerReact(Component) {
     if (confirm) {
       if (this.props.fileType === 'video') {
         this.setState({
+          fileName: file.name ? file.name.replace(`.${fileExtension}`, '') : '',
           imagePreviewUrl: '/img/video.blank.svg',
         });
       } else {
         reader.onloadend = () => {
           this.setState({
-            // file,
+            fileName: file.name ? file.name.replace(`.${fileExtension}`, '') : '',
             imagePreviewUrl: reader.result,
           });
         };
         reader.readAsDataURL(file);
       }
+      // this.inputFileCaption.setState({ value: file.fileName });
+      // document.getElementById('inputFileCaption').value = file.fileName;
     } else {
       this.inputFile.value = '';
-      alert('알맞은 화일 타입이 아닙니다.');
+      alert('허용된 화일 타입이 아닙니다.');
     }
   }
   onSelectChange(e, key) {
@@ -236,15 +242,15 @@ class FileUpload extends trackerReact(Component) {
               >
                 <div
                   style={{
-                    display: 'inline-block', verticalAlign: 'top' }}
+                    position: 'relative', display: 'inline-block', verticalAlign: 'top' }}
                 >
                   <img
                     id="imgPreviewer"
                     src={this.state.imagePreviewUrl}
                     alt="Selected Image"
-                    width="160px"
-                    height="90px"
-                    style={{ width: '160px', height: '90px', backgroundColor: '#EFEFEF' }}
+                    width="200px"
+                    height="130px"
+                    style={{ width: '200px', height: '130px', backgroundColor: '#EFEFEF' }}
                   />
                 </div>
                 <div>
@@ -274,6 +280,7 @@ class FileUpload extends trackerReact(Component) {
                   floatingLabelText={`${uploadTitle} 제목`}
                   required
                   style={{ display: 'block' }}
+                  value={this.state.fileName}
                 />
                 <FormsyText
                   // id="media_desc"
@@ -295,7 +302,10 @@ class FileUpload extends trackerReact(Component) {
                 />
               </Formsy.Form>
               <ToggleDisplay show={this.state.inProgress}>
+                {/*
                 <Slider defaultValue={0} value={this.state.progress} min={0} max={100} />
+                */}
+                <LinearProgress mode="determinate" value={this.state.progress} />
                 <span className="sr-only">{this.state.progress}% Complete (success)</span>
                 <span>{this.state.progress}%</span>
               </ToggleDisplay>

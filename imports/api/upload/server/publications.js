@@ -20,15 +20,15 @@ if (Meteor.isServer) {
       check(fileIds, Array);
       MediaFiles.remove({ _id: { $in: fileIds } });
     },
-    'Files.Rename'(fileid, filename) {
-      check(fileid, String);
-      check(filename, String);
-      MediaFiles.update({ _id: fileid }, { $set: { name: filename } });
-    },
     'Categories.Remove'(catIds) {
       check(catIds, Array);
       MediaFiles.remove({ _id: { $in: catIds } });
       MediaFiles.remove({ catId: { $in: catIds } });
+    },
+    'Files.Rename'(fileid, filename) {
+      check(fileid, String);
+      check(filename, String);
+      MediaFiles.update({ _id: fileid }, { $set: { name: filename } });
     },
     'Files.MakeThumbnail'(file) {
       check(file, Object);

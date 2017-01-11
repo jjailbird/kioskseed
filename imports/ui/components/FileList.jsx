@@ -11,11 +11,9 @@ import Checkbox from 'material-ui/Checkbox';
 import Subheader from 'material-ui/Subheader';
 import IconDelete from 'material-ui/svg-icons/action/delete-forever';
 import IconButton from 'material-ui/IconButton';
-import Badge from 'material-ui/Badge';
 
 import confirm from '../utils/confirm.js';
 import handleFormInputChange from '../utils/handleFormInputChange';
-import fs from 'fs';
 
 export default class FileList extends trackerReact(Component) {
   constructor(props) {
@@ -101,7 +99,7 @@ export default class FileList extends trackerReact(Component) {
         style={{ display: 'inline-block', verticalAlign: 'top' }}
         zDepth={1}
         children={
-          <List>
+          <List style={{ minWidth: '350px' }}>
             <Subheader>
               <span>{listTitle} 리스트 ({files.length})</span>
               <span style={{ float: 'right' }}>
@@ -123,7 +121,8 @@ export default class FileList extends trackerReact(Component) {
             let link = MediaFiles.findOne({ _id: file._id }).link();
             if (fileType === 'video') {
               // link = `${file._downloadRoute}/${file._id}.thumb.jpg`;
-              link = link.replace(`${file._id}.${file.extension}`, `${file._id}.thumb.jpg`);
+              // link = link.replace(`${file._id}.${file.extension}`, `${file._id}.thumb.jpg`);
+              link = `http://localhost/${file._id}.thumb.jpg`;
             }
 
             let fileCount = 0;
@@ -135,7 +134,13 @@ export default class FileList extends trackerReact(Component) {
             return (
               <ListItem
                 key={index}
-                rightAvatar={<Avatar src={link} />}
+                rightAvatar={
+                  <Avatar
+                    className="avatar-square" src={link}
+                    style={{ borderRadius: '0px', width: '70px' }}
+                    size={50}
+                  />
+                }
                 leftCheckbox={
                   <Checkbox
                     name="chkFiles"
