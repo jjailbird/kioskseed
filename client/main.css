@@ -1512,9 +1512,17 @@
 .slick-next, .slick-prev {
   font-size: 0;
   line-height: 0;
-  top: 50%;
+  
+  /*top: 50%;*/
+  top: 336px;
+  
+  /*
   width: 20px;
   height: 20px;
+  */
+  width: 40px;
+  height: 40px;
+
   -webkit-transform: translate(0,-50%);
   -ms-transform: translate(0,-50%);
   transform: translate(0,-50%);
@@ -1531,11 +1539,17 @@
   left: -25px;
 }
 .slick-next:before, .slick-prev:before {
-  font-size: 20px;
+  /*font-size: 20px;*/
+  font-size: 40px;
+
   line-height: 1;
   opacity: .75;
-  color: #fff;
+
+  /*color: #fff;*/
+  color: #607474;
 }
+
+
 .slick-dots {
   bottom: -25px;
   width: 100%;
@@ -1551,6 +1565,7 @@
   width: 20px;
   height: 20px;
   */
+
   width: 50px;
   height: 50px;
 
@@ -1582,7 +1597,7 @@
   font-size: 6px;
   line-height: 20px;
   */
-  font-size: 18px;
+  font-size: 25px;
   line-height: 50px;
 
   position: absolute;
@@ -1601,4 +1616,26 @@
   opacity: .25;
   color: #000;
 }
+.video-slider .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #e3be2e;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+}
+.image-slider .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #8fc436;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #A7D556, 0 0 35px #A7D556, 0 0 40px #A7D556, 0 0 50px #A7D556, 0 0 75px #A7D556;
+}
 /* React Slick End   -----------------------------------------------------*/
+
+/* css quote -----------------------*/
+.quote {
+  quotes: "“" "”" "‘" "’";
+}
+.quote:before {
+    content: open-quote;
+}
+.quote:after {
+    content: close-quote;
+}
+/* css quote -----------------------*/

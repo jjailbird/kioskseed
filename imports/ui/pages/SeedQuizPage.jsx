@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import Divider from 'material-ui/Divider';
 import Title from 'react-title-component';
-import { MARGIN_RIGHT_WIDTH } from './constants.js';
+import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE } from './constants.js';
 
 class SeedQuizPage extends PureComponent {
   render() {
@@ -16,24 +15,16 @@ class SeedQuizPage extends PureComponent {
       >
         <div style={{ marginRight: `${MARGIN_RIGHT_WIDTH}px` }}>
           <Title render={(previousTitle) => `씨앗퀴즈 - ${previousTitle}`} />
-          <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
+          <div style={STYLE_CONTENT_TITLE}>
             <img src="/img/seedQuiz.title.png" alt="씨앗퀴즈" />
           </div>
-          <div
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              borderRadius: '25px',
-              paddingTop: '40px',
-              paddingBottom: '40px',
-            }}
-          >
+          <div style={STYLE_CONTENT_CONTAINER}>
             <iframe
               src="http://www.genebank.go.kr/seedquiz/"
               frameBorder="0"
               scrolling="no"
               style={{
+                marginTop: '40px',
                 border: 'none',
                 width: '920px',
                 height: '749px',

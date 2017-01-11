@@ -9,15 +9,16 @@ import { MediaFiles } from '../../api/upload/MediaFiles.js';
 // import Center from 'react-center';
 import { GridList, GridTile } from 'material-ui/GridList';
 import { ModalManager } from 'react-dynamic-modal';
-import FileViewer from '../../ui/components/FileViewer.jsx';
-import { MARGIN_RIGHT_WIDTH } from './constants.js';
+// import FileViewer from '../../ui/components/FileViewer.jsx';
+import VideoViewer from '../../ui/components/VideoViewer.jsx';
+import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE } from './constants.js';
 
 const styles = {
   gridList: {
-    width: '100%',
-    height: 450,
+    width: 1495,
+    height: 635,
     overflowY: 'auto',
-    margin: '0px',
+    margin: '20px 0px 0px 0px',
   },
 };
 
@@ -37,13 +38,13 @@ class ImagePage extends trackerReact(Component) {
     */
     this.state.files.stop();
   }
-  openFileViewer(src, caption) {
-    ModalManager.open(<FileViewer src={src} caption={caption} onRequestClose={() => true} />);
+  openVideoViewer(src, caption) {
+    ModalManager.open(<VideoViewer src={src} caption={caption} onRequestClose={() => true} />);
   }
   renderSlides(slideSource) {
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -61,10 +62,9 @@ class ImagePage extends trackerReact(Component) {
     }
 
     return (
-      <Slider {...settings}>
+      <Slider className="video-slider" {...settings}>
         {slides.map((file, index) => (
           <div key={index}>
-            <h1>{index}</h1>
             {this.renderGridList(file)}
           </div>
         ))}
@@ -76,25 +76,27 @@ class ImagePage extends trackerReact(Component) {
       <GridList
         style={styles.gridList}
         cols={3}
-        cellHeight={200}
-        padding={20}
+        cellHeight={250}
+        padding={60}
+        className="video-grid"
       >
       {images.map((aFile, key) => {
         const link = MediaFiles.findOne({ _id: aFile._id }).link();
+        const thumbnail = `http://localhost/${aFile._id}.thumb.jpg`;
         return (
           <GridTile
             // subtitle={<span>by <b>{this.props.fileSize}</b></span>}
             key={key}
-            title={aFile.name}
+            title={aFile.meta.caption}
           >
             <img
-              src={link}
+              src={thumbnail}
               // alt={this.props.fileName}
-              alt={aFile.name}
+              alt={aFile.meta.caption ? aFile.meta.caption : aFile.name}
               style={{ cursor: 'pointer' }}
               onTouchTap={() => {
-              // this.openFileViewer(this.props.fileUrl, this.props.fileName);
-                this.openFileViewer(link, aFile.name);
+              // this.openVideoViewer(this.props.fileUrl, this.props.fileName);
+                this.openVideoViewer(link, aFile.meta.caption ? aFile.meta.caption : aFile.name);
               }}
             />
           </GridTile>
@@ -106,7 +108,7 @@ class ImagePage extends trackerReact(Component) {
   render() {
     // const fileCursors = MediaFiles.find({}, { sort: { updatedAt: -1 } }).fetch();
     // console.log('fileCursors', fileCursors.length);
-    const fileCursors = MediaFiles.find({ isImage: true }, { sort: { updatedAt: -1 } }).fetch();
+    const fileCursors = MediaFiles.find({ contentType: 'video' }, { sort: { updatedAt: -1 } }).fetch();
 
     return (
       <div
@@ -119,20 +121,10 @@ class ImagePage extends trackerReact(Component) {
       >
         <div style={{ marginRight: `${MARGIN_RIGHT_WIDTH}px` }}>
           <Title render={(previousTitle) => `영상보기 - ${previousTitle}`} />
-          <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
+          <div style={STYLE_CONTENT_TITLE}>
             <img src="/img/videos.title.png" alt="영상보기" />
           </div>
-          <div
-            style={{
-              width: '100%',
-              height: '900px',
-              textAlign: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              borderRadius: '25px',
-              paddingTop: '40px',
-              paddingBottom: '40px',
-            }}
-          >
+          <div style={STYLE_CONTENT_CONTAINER}>
             <div style={{ padding: '40px' }}>
               {this.renderSlides(fileCursors)}
             </div>

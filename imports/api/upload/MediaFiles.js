@@ -45,7 +45,6 @@ const updateMediaFile = (file) => {
   });
 };
 
-
 export const MediaFiles = new FilesCollection({
   debug: false,
   collectionName: 'MediaFiles',

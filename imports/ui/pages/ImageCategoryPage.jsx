@@ -11,11 +11,12 @@ import { MediaFiles } from '../../api/upload/MediaFiles.js';
 import { GridList, GridTile } from 'material-ui/GridList';
 import { ModalManager } from 'react-dynamic-modal';
 import FileViewer from '../../ui/components/FileViewer.jsx';
-import { MARGIN_RIGHT_WIDTH } from './constants.js';
+import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE } from './constants.js';
 
 const styles = {
   gridList: {
     width: '100%',
+    height: '920px',
     overflowY: 'auto',
     margin: '0px',
     // borderRadius: '25px',
@@ -43,7 +44,7 @@ class ImageCategoryPage extends trackerReact(Component) {
   }
   renderSlides(slideSource) {
     const settings = {
-      dots: true,
+      dots: false,
       infinite: false,
       speed: 500,
       slidesToShow: 1,
@@ -76,8 +77,8 @@ class ImageCategoryPage extends trackerReact(Component) {
       <GridList
         style={styles.gridList}
         cols={2}
-        cellHeight={380}
-        padding={20}
+        cellHeight={448}
+        padding={10}
       >
       {images.map((aFile, key) => {
         const link = MediaFiles.findOne({ _id: aFile._id }).link();
@@ -90,6 +91,7 @@ class ImageCategoryPage extends trackerReact(Component) {
             <img
               src={link}
               // alt={this.props.fileName}
+              className="content-image"
               alt={aFile.name}
               style={{ cursor: 'pointer' }}
               onTouchTap={() => {
@@ -108,7 +110,7 @@ class ImageCategoryPage extends trackerReact(Component) {
   render() {
     // const fileCursors = MediaFiles.find({}, { sort: { updatedAt: -1 } }).fetch();
     // console.log('fileCursors', fileCursors.length);
-    const fileCursors = MediaFiles.find({ contentType: 'cat' }, { sort: { updatedAt: -1 } }).fetch();
+    const fileCursors = MediaFiles.find({ contentType: 'cat' }, { sort: { updatedAt: 0 } }).fetch();
     // console.log('fileCursors', fileCursors);
     return (
       <div
@@ -121,10 +123,19 @@ class ImageCategoryPage extends trackerReact(Component) {
       >
         <div style={{ marginRight: `${MARGIN_RIGHT_WIDTH}px` }}>
           <Title render={(previousTitle) => `사진보기 - ${previousTitle}`} />
-          <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
+          <div style={STYLE_CONTENT_TITLE}>
             <img src="/img/images.categroy.title.png" alt="사진보기" />
           </div>
-          <div style={{ padding: '0px' }}>
+          <div
+            style={{
+              width: '100%',
+              height: '920px',
+              textAlign: 'center',
+              // backgroundColor: 'rgba(255, 255, 255, 0.6)',
+              // borderRadius: '25px',
+              padding: '0px',
+            }}
+          >
             {this.renderSlides(fileCursors)}
           </div>
         </div>

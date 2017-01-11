@@ -60,7 +60,7 @@ class NavRight extends Component {
             overflow: 'hidden',
           }}
         >
-          <div style={{ paddingTop: '28px' }}>
+          <div style={{ paddingTop: '50px' }}>
             <img src="/img/logo.app.png" alt="logo" />
             <div className="flipCard01" style={{ paddingTop: BUTTON_PADDING_TOP }}>
               <FlipCard >

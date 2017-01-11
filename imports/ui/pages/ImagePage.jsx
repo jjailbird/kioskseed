@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 // import Divider from 'material-ui/Divider';
 import Title from 'react-title-component';
 
@@ -11,8 +11,9 @@ import { MediaFiles } from '../../api/upload/MediaFiles.js';
 import { GridList, GridTile } from 'material-ui/GridList';
 import { ModalManager } from 'react-dynamic-modal';
 import FileViewer from '../../ui/components/FileViewer.jsx';
-import { MARGIN_RIGHT_WIDTH } from './constants.js';
+import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE } from './constants.js';
 
+import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconReplay from 'material-ui/svg-icons/av/replay';
 
@@ -47,7 +48,7 @@ class ImagePage extends trackerReact(Component) {
   renderSlides(slideSource) {
     const settings = {
       dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -65,7 +66,7 @@ class ImagePage extends trackerReact(Component) {
     }
 
     return (
-      <Slider {...settings}>
+      <Slider className="image-slider" {...settings}>
         {slides.map((file, index) => (
           <div key={index}>
             {this.renderGridList(file)}
@@ -79,7 +80,7 @@ class ImagePage extends trackerReact(Component) {
       <GridList
         style={styles.gridList}
         cols={4}
-        cellHeight={320}
+        cellHeight={300}
         padding={20}
       >
       {images.map((aFile, key) => {
@@ -111,6 +112,7 @@ class ImagePage extends trackerReact(Component) {
     // console.log('fileCursors', fileCursors.length);
     // console.log('this.props.params.cat', this.props.params.cat);
     const catId = this.props.params.cat;
+    const catFile = MediaFiles.findOne({ _id: catId });
     const fileCursors = MediaFiles.find(
       { contentType: 'image', catId }, { sort: { updatedAt: -1 } }).fetch();
 
@@ -125,22 +127,34 @@ class ImagePage extends trackerReact(Component) {
       >
         <div style={{ marginRight: `${MARGIN_RIGHT_WIDTH}px` }}>
           <Title render={(previousTitle) => `사진보기 - ${previousTitle}`} />
-          <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
-            <img src="/img/images.gallery.title.png" alt="사진보기" />
+          <div style={STYLE_CONTENT_TITLE}>
+            <h1
+              style={{
+                height: '47px', lineHeight: '47px', margin: '3px',
+                fontWeight: 'normal', fontSize: '40px', color: '#fff',
+              }}
+              className="quote"
+            >
+              {` ${catFile.meta.caption} `}
+            </h1>
           </div>
-          <div
-            style={{
-              width: '100%',
-              height: '900px',
-              textAlign: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              borderRadius: '25px',
-              paddingTop: '40px',
-              paddingBottom: '40px',
-            }}
-          >
+          <div style={STYLE_CONTENT_CONTAINER}>
             <div style={{ padding: '40px' }}>
               {this.renderSlides(fileCursors)}
+              <Link
+                to="/imageCategories"
+                style={{
+                  position: 'relative',
+                  float: 'right', clear: 'right', cursor: 'pointer',
+                  zIndex: 100,
+                }}
+              >
+                <img
+                  src="/img/btn.goto.back.png"
+                  alt="뒤로가기"
+                />
+              </Link>
+                {/*
               <FlatButton
                 label="뒤로"
                 labelStyle={{
@@ -152,6 +166,7 @@ class ImagePage extends trackerReact(Component) {
                 }}
                 onTouchTap={() => { browserHistory.push('/imageCategories'); }}
               />
+              */}
             </div>
           </div>
         </div>
