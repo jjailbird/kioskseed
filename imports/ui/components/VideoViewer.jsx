@@ -48,6 +48,13 @@ export default class VideoViewer extends PureComponent {
                 }}
               >
                 <source src={src} type="video/mp4" />
+                <Controls>
+                  <Play />
+                  <Seek />
+                  <Time />
+                  <Mute />
+                  <Overlay />
+                </Controls>
               </Video>
               <h3 style={{ color: '#fff' }}>{this.props.caption}</h3>
             </div>

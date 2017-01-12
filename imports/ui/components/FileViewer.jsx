@@ -32,7 +32,7 @@ export default class FileViewer extends PureComponent {
               <IconOff color="#fff" />
             </IconButton>
             <h3 style={{ color: '#fff' }}>{this.props.caption}</h3>
-            <img src={src} alt={caption} style={{ maxWidth: '90%', maxHeight: '90%' }} />
+            <img src={src} alt={caption} style={{ maxWidth: '1200px', maxHeight: '750px' }} />
           </div>
         </Modal>
       </MuiThemeProvider>

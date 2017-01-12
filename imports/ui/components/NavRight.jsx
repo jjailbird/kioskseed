@@ -73,7 +73,7 @@ class NavRight extends Component {
                 </div>
                 <div>
                   <img
-                    src="/img/btn.goto.1.v.png"
+                    src="/img/btn.goto.1.png"
                     alt="씨앗퀴즈"
                     onTouchTap={() => { browserHistory.push('/seedQuiz'); }}
                   />
@@ -91,7 +91,7 @@ class NavRight extends Component {
                 </div>
                 <div>
                   <img
-                    src="/img/btn.goto.2.v.png"
+                    src="/img/btn.goto.2.png"
                     alt="영상보기"
                     onTouchTap={() => { browserHistory.push('/videos'); }}
                   />
@@ -109,7 +109,7 @@ class NavRight extends Component {
                 </div>
                 <div>
                   <img
-                    src="/img/btn.goto.3.v.png"
+                    src="/img/btn.goto.3.png"
                     alt="사진보기"
                     onTouchTap={() => { browserHistory.push('/imageCategories'); }}
                   />
