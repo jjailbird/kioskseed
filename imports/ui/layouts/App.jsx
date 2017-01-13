@@ -50,9 +50,9 @@ class App extends Component {
     }, CONNECTION_ISSUE_TIMEOUT);
   }
   onIdleAction() {
-    const currentPath = this.props.location.pathname;
-    console.log('idle!', currentPath);
-    if (currentPath !== '/' && currentPath !== '/videos' && currentPath.indexOf('/admin') !== 0) {
+    const currentPathname = this.props.location.pathname;
+    // console.log('idle!', currentPath);
+    if (currentPathname !== '/' && currentPathname !== '/videos' && currentPathname.indexOf('/admin') !== 0) {
       browserHistory.push('/');
     }
   }
@@ -66,7 +66,7 @@ class App extends Component {
     const idleTimeout =
       Meteor.settings.public.idleTimeout ?
       Meteor.settings.public.idleTimeout :
-      60 * 1000;
+      5 * 60 * 1000;
     return (
       <IdleTimer
         ref="idleTimer"
