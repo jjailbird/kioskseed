@@ -41,20 +41,11 @@ export default class VideoViewer extends PureComponent {
                 ref="vPlayer"
                 controls
                 autoPlay
-                volume={50}
-                poster="http://sourceposter.jpg"
                 onCanPlayThrough={() => {
                   // Do stuff
                 }}
               >
                 <source src={src} type="video/mp4" />
-                <Controls>
-                  <Play />
-                  <Seek />
-                  <Time />
-                  <Mute />
-                  <Overlay />
-                </Controls>
               </Video>
               <h3 style={{ color: '#fff' }}>{this.props.caption}</h3>
             </div>

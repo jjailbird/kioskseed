@@ -15,6 +15,7 @@ class NavRight extends Component {
     };
   }
   componentWillMount() {
+    /*
     browserHistory.listen(location => {
       // const currentIndex = this.state.selectedIndex;
       let index = 0;
@@ -37,6 +38,7 @@ class NavRight extends Component {
       }
       this.select(index);
     });
+    */
   }
   select(index, url) {
     this.setState({ selectedIndex: index });
@@ -45,9 +47,12 @@ class NavRight extends Component {
     }
   }
   render() {
-    // console.log(this.state.selectedIndex);
+    const currentPathname = this.props.currentPathname;
+    console.log('this.props.currentPathname', currentPathname);
+
     return (
-      this.state.selectedIndex > 0 ?
+      // this.state.selectedIndex > 0 ?
+      (currentPathname !== '/' && currentPathname.indexOf('/admin') !== 0) ?
         <Drawer
           width={NAV_RIGHT_WIDTH}
           openSecondary
@@ -129,6 +134,8 @@ class NavRight extends Component {
 
 NavRight.propTypes = {
   user: React.PropTypes.object,
+  location: React.PropTypes.object,
+  currentPathname: React.PropTypes.string,
 };
 
 NavRight.contextTypes = {

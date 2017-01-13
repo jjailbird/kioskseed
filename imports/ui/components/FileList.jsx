@@ -15,6 +15,8 @@ import IconButton from 'material-ui/IconButton';
 import confirm from '../utils/confirm.js';
 import handleFormInputChange from '../utils/handleFormInputChange';
 
+import { IMAGE_HOST } from '../pages/constants.js';
+
 export default class FileList extends trackerReact(Component) {
   constructor(props) {
     super(props);
@@ -122,7 +124,7 @@ export default class FileList extends trackerReact(Component) {
             if (fileType === 'video') {
               // link = `${file._downloadRoute}/${file._id}.thumb.jpg`;
               // link = link.replace(`${file._id}.${file.extension}`, `${file._id}.thumb.jpg`);
-              link = `http://localhost/${file._id}.thumb.jpg`;
+              link = `${IMAGE_HOST}/${file._id}.thumb.jpg`;
             }
 
             let fileCount = 0;

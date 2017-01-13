@@ -25,6 +25,7 @@
     "react-dynamic-modal": "^1.1.1",
     "react-flipcard": "^0.2.1",
     "react-html5video": "^1.4.0",
+    "react-idle-timer": "^1.3.3",
     "react-inline-confirm": "^2.1.0",
     "react-maxwell-modal": "^2.0.6",
     "react-responsive": "^1.2.5",

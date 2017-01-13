@@ -1,4 +1,4 @@
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import Title from 'react-title-component';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -11,6 +11,8 @@ import { green100, green500, green700 } from 'material-ui/styles/colors';
 // import './App.css';
 // import NavBottom from '../components/NavBottom.jsx';
 import NavRight from '../components/NavRight.jsx';
+import IdleTimer from 'react-idle-timer';
+import { browserHistory } from 'react-router';
 
 const CONNECTION_ISSUE_TIMEOUT = 1000;
 
@@ -33,6 +35,7 @@ class App extends Component {
     this.state = {
       showConnectionIssue: false,
     };
+    this.onIdleAction = this.onIdleAction.bind(this);
   }
   getChildContext() {
     return {
@@ -46,6 +49,13 @@ class App extends Component {
       this.setState({ showConnectionIssue: true });
     }, CONNECTION_ISSUE_TIMEOUT);
   }
+  onIdleAction() {
+    const currentPath = this.props.location.pathname;
+    console.log('idle!', currentPath);
+    if (currentPath !== '/' && currentPath !== '/videos' && currentPath.indexOf('/admin') !== 0) {
+      browserHistory.push('/');
+    }
+  }
   render() {
     const { showConnectionIssue } = this.state;
     const {
@@ -53,17 +63,32 @@ class App extends Component {
       connected,
       children,
     } = this.props;
-
+    const idleTimeout =
+      Meteor.settings.public.idleTimeout ?
+      Meteor.settings.public.idleTimeout :
+      60 * 1000;
     return (
-      <MuiThemeProvider muiTheme={muiThemeGreen}>
-        <div>
-          <Title render="Kiosk Seed" />
-          <div className="detail">
-            {this.props.children}
+      <IdleTimer
+        ref="idleTimer"
+        element={document}
+        idleAction={this.onIdleAction}
+        timeout={idleTimeout}
+        format="MM-DD-YYYY HH:MM:ss.SSS"
+      >
+        <MuiThemeProvider muiTheme={muiThemeGreen}>
+          <div>
+            <Title render="Kiosk Seed" />
+            <div className="detail">
+              {this.props.children}
+            </div>
+            <NavRight
+              ref="navRightMenu"
+              user={this.props.user}
+              currentPathname={this.props.location.pathname}
+            />
           </div>
-          <NavRight user={this.props.user} />
-        </div>
-      </MuiThemeProvider>
+        </MuiThemeProvider>
+      </IdleTimer>
     );
   }
 }

@@ -11,7 +11,7 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import { ModalManager } from 'react-dynamic-modal';
 // import FileViewer from '../../ui/components/FileViewer.jsx';
 import VideoViewer from '../../ui/components/VideoViewer.jsx';
-import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE } from './constants.js';
+import { MARGIN_RIGHT_WIDTH, STYLE_CONTENT_CONTAINER, STYLE_CONTENT_TITLE, IMAGE_HOST } from './constants.js';
 
 const styles = {
   gridList: {
@@ -82,7 +82,7 @@ class ImagePage extends trackerReact(Component) {
       >
       {images.map((aFile, key) => {
         const link = MediaFiles.findOne({ _id: aFile._id }).link();
-        const thumbnail = `http://localhost/${aFile._id}.thumb.jpg`;
+        const thumbnail = `${IMAGE_HOST}/${aFile._id}.thumb.jpg`;
         return (
           <GridTile
             // subtitle={<span>by <b>{this.props.fileSize}</b></span>}

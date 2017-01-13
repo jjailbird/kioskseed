@@ -31,7 +31,7 @@ class ImagePage extends trackerReact(Component) {
     super(props);
     this.state = {
       images: [],
-      files: Meteor.subscribe('files.all'),
+      subscription : { files: Meteor.subscribe('files.all') },
     };
   }
   componentWillUnmount() {
@@ -40,7 +40,7 @@ class ImagePage extends trackerReact(Component) {
       images: MediaFiles.find({}, { sort: { updatedAt: -1 } }).fetch(),
     });
     */
-    this.state.files.stop();
+    this.state.subscription.files.stop();
   }
   openFileViewer(src, caption) {
     ModalManager.open(<FileViewer src={src} caption={caption} onRequestClose={() => true} />);
@@ -115,6 +115,10 @@ class ImagePage extends trackerReact(Component) {
     const catFile = MediaFiles.findOne({ _id: catId });
     const fileCursors = MediaFiles.find(
       { contentType: 'image', catId }, { sort: { updatedAt: -1 } }).fetch();
+    let pageTitle = '';
+    if (this.state.subscription.files.ready()) {
+      pageTitle = catFile.meta && catFile.meta.caption ? catFile.meta.caption : catFile.name;
+    }
 
     return (
       <div
@@ -135,7 +139,7 @@ class ImagePage extends trackerReact(Component) {
               }}
               className="quote"
             >
-              {` ${catFile.meta.caption} `}
+              {` ${pageTitle} `}
             </h1>
           </div>
           <div style={STYLE_CONTENT_CONTAINER}>

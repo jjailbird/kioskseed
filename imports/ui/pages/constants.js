@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 export const NAV_RIGHT_WIDTH = 320;
 export const MARGIN_RIGHT_WIDTH = 290;
 export const STYLE_CONTENT_CONTAINER = {
@@ -13,3 +15,5 @@ export const STYLE_CONTENT_TITLE = {
   paddingTop: '23px', paddingBottom: '31px',
 };
 
+export const IMAGE_HOST =
+  Meteor.settings.public.imageHost ? Meteor.settings.public.imageHost : 'http://localhost';
