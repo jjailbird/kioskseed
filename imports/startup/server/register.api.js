@@ -52,7 +52,7 @@ Meteor.startup(() => {
     console.log('MONGO_URL', Meteor.settings.public.mongoURL);
   }
   var childProcess = require('child_process');
-  childProcess.exec(`start chrome --kiosk ${rootUrl}`);
+  childProcess.exec(`start chrome --kiosk --incognito --disable-pinch --overscroll-history-navigation=0 ${rootUrl}`);
 });
 
 import '../../api/upload/server/publications';
