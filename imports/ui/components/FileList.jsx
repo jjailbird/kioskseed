@@ -125,6 +125,8 @@ export default class FileList extends trackerReact(Component) {
               // link = `${file._downloadRoute}/${file._id}.thumb.jpg`;
               // link = link.replace(`${file._id}.${file.extension}`, `${file._id}.thumb.jpg`);
               link = `${IMAGE_HOST}/${file._id}.thumb.jpg`;
+            } else {
+              link = `${IMAGE_HOST}/${file._id}.${file.extension}`;
             }
 
             let fileCount = 0;

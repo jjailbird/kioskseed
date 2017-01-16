@@ -122,7 +122,7 @@ class NavRight extends Component {
               </FlipCard>
             </div>
             <div style={{ paddingTop: BUTTON_PADDING_TOP }}>
-              <img src="/img/btn.goto.0.png" alt="Home" onTouchTap={() => { browserHistory.push('/home'); }} />
+              <img src="/img/btn.goto.0.png" alt="Home" onTouchTap={() => { browserHistory.push('/'); }} />
             </div>
           </div>
         </Drawer>
